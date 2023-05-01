@@ -1,9 +1,8 @@
 package com.example.jsonplaceholderapi.di
 
-import android.app.Activity
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.example.jsonplaceholderapi.R
+import android.content.Context
+import androidx.navigation.NavHostController
+import com.example.jsonplaceholderapi.Application
 import com.example.jsonplaceholderapi.data.remote.ApiDetails
 import com.example.jsonplaceholderapi.data.remote.ApiRequest
 import com.example.jsonplaceholderapi.data.repository.AuthRepository
@@ -15,13 +14,13 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -74,6 +73,19 @@ class AppModule {
     fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
+
+    @Provides
+    @Singleton
+    fun provideNavHostController(application: Application): NavHostController {
+        return NavHostController(application)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplication(@ApplicationContext context: Context): Application {
+        return context.applicationContext as Application
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package com.example.jsonplaceholderapi.ui.loginPage
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.jsonplaceholderapi.data.repository.AuthRepository
 import com.example.jsonplaceholderapi.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,8 @@ import com.example.jsonplaceholderapi.util.Resource.Loading
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    val repository: AuthRepository
+    val repository: AuthRepository,
+    val navController: NavHostController
 ) : ViewModel() {
 
     val _loginState = Channel<LoginState>()
@@ -28,6 +30,7 @@ class LoginViewModel @Inject constructor(
             when (result) {
                 is Success -> {
                     _loginState.send(LoginState(isSuccess = "Sign In Success"))
+                    navController.navigate("users")
 
                 }
 

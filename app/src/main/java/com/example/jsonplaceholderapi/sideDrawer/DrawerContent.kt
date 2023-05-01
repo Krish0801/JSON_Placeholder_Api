@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.jsonplaceholderapi.R
+import com.example.jsonplaceholderapi.navigation.NavigationItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jsonplaceholderapi.R
+import com.example.jsonplaceholderapi.navigation.NavigationItem
 
 
 @Composable

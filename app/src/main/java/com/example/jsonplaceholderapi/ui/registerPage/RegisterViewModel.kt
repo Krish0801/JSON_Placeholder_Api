@@ -2,6 +2,7 @@ package com.example.jsonplaceholderapi.ui.registerPage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.example.jsonplaceholderapi.data.repository.AuthRepository
 import com.example.jsonplaceholderapi.util.Resource.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     val repository: AuthRepository,
+   val navController: NavHostController
 ) : ViewModel() {
 
     val _registerState = Channel<RegisterState>()
@@ -23,6 +25,7 @@ class RegisterViewModel @Inject constructor(
             when (result) {
                 is Success -> {
                     _registerState.send(RegisterState(isSuccess = "Sign In Success"))
+                    navController.navigate("users")
 
                 }
 

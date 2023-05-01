@@ -6,5 +6,4 @@ sealed class Screen(val route: String) {
 
     object RegisterPage : Screen(route = "Register_Page")
 
-    object HomePage : Screen(route = "Home_page")
 }

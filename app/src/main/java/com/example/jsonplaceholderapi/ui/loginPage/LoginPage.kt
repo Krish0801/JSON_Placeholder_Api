@@ -37,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.jsonplaceholderapi.R
 import kotlinx.coroutines.launch
 
 @Composable
-fun LoginPage(navController: NavController, viewModel: LoginViewModel= hiltViewModel()) {
+fun LoginPage( viewModel: LoginViewModel= hiltViewModel()) {
+    val navHostController = viewModel.navController
     var email by rememberSaveable { mutableStateOf("")}
     var password by rememberSaveable { mutableStateOf("")}
     val scope = rememberCoroutineScope()
@@ -122,8 +124,8 @@ fun LoginPage(navController: NavController, viewModel: LoginViewModel= hiltViewM
                 Spacer(modifier = Modifier.padding(10.dp))
                 androidx.compose.material3.TextButton(onClick = {
 
-                    navController.navigate("register_page"){
-                        popUpTo(navController.graph.startDestinationId)
+                    navHostController.navigate("register_page"){
+                        popUpTo(navHostController.graph.startDestinationId)
                         launchSingleTop = true
                     }
 
@@ -139,8 +141,8 @@ fun LoginPage(navController: NavController, viewModel: LoginViewModel= hiltViewM
                 Spacer(modifier = Modifier.padding(5.dp))
                 androidx.compose.material3.TextButton(onClick = {
 
-                    navController.navigate("reset_page"){
-                        popUpTo(navController.graph.startDestinationId)
+                    navHostController.navigate("reset_page"){
+                        popUpTo(navHostController.graph.startDestinationId)
                         launchSingleTop = true
                     }
 

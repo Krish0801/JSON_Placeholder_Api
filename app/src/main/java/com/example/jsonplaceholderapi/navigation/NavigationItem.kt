@@ -1,4 +1,4 @@
-package com.example.jsonplaceholderapi.sideDrawer
+package com.example.jsonplaceholderapi.navigation
 
 import com.example.jsonplaceholderapi.R
 
@@ -10,4 +10,5 @@ sealed class NavigationItem(var route: String, var icon: Int, var title: String 
     object Albums : NavigationItem("albums", R.drawable.ic_albums, "Albums")
     object Comments : NavigationItem("comments", R.drawable.ic_comments, "Comments")
     object Todos : NavigationItem("todos", R.drawable.ic_todos, "Todos")
+
 }

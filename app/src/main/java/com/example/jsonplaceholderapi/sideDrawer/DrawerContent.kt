@@ -3,6 +3,7 @@ package com.example.jsonplaceholderapi.sideDrawer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,6 @@ import com.example.jsonplaceholderapi.navigation.NavigationItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun Drawer(scope: CoroutineScope, scaffoldState: ScaffoldState, navController: NavController){
 
@@ -35,6 +35,7 @@ fun Drawer(scope: CoroutineScope, scaffoldState: ScaffoldState, navController: N
     )
     val headerColor= Color(0xFF0C3954)
     val backgroundColor= Color(0xFFEDF6FC)
+    val textColor= Color(0xFFE68753)
 
     Column(
         modifier = Modifier
@@ -44,20 +45,30 @@ fun Drawer(scope: CoroutineScope, scaffoldState: ScaffoldState, navController: N
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp)
+                .height(150.dp)
                 .background(headerColor),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
                 painter = painterResource(id = R.drawable.logo),
-                contentDescription = "",
+                contentDescription = "logo",
                 modifier = Modifier
                     .height(100.dp)
                     .fillMaxWidth()
                     .padding(10.dp)
             )
+                Text(
+                    text = "JSON Placeholder Api",
+                    color = textColor,
+                    style = MaterialTheme.typography.h6,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(8.dp)
+                )
+            }
+
 
         }
 
@@ -102,4 +113,5 @@ fun Drawer(scope: CoroutineScope, scaffoldState: ScaffoldState, navController: N
         )
     }
 }
+
 

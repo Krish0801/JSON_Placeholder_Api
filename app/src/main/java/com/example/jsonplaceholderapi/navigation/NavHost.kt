@@ -1,7 +1,5 @@
 package com.example.jsonplaceholderapi.navigation
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.*
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.Icon
@@ -11,10 +9,9 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -31,6 +28,7 @@ import com.example.jsonplaceholderapi.ui.registerPage.RegisterPage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationPage() {
@@ -42,15 +40,12 @@ fun NavigationPage() {
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
 
+    val currentRoute = navController.currentDestination?.route
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            // Show top bar only in pages other than Login and Register
-            if (navController.currentDestination?.route !in listOf(Screen.LoginPage.route, Screen.RegisterPage.route)) {
-                TopBar(scope = scope, scaffoldState = scaffoldState)
-            } else{
-                Spacer(modifier = Modifier.height(0.dp))
-            }
+            TopBar(scope = scope, scaffoldState = scaffoldState, navController = navController)
         },
         drawerContent = {
             Drawer(scope = scope, scaffoldState = scaffoldState, navController = navController)
@@ -59,6 +54,8 @@ fun NavigationPage() {
         Navigation(navController = navController)
     }
 }
+
+
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -87,36 +84,39 @@ fun Navigation(navController: NavHostController) {
             TodosScreen(navController= navController)
         }
 
-        composable(Screen.LoginPage.route){
-            LoginPage()
+        composable(NavigationItem.LoginPage.route){
+            LoginPage(navController= navController)
         }
 
-        composable(Screen.RegisterPage.route){
-            RegisterPage()
+        composable(NavigationItem.RegisterPage.route){
+            RegisterPage(navController= navController)
         }
     }
 }
 
 
 @Composable
-fun TopBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
+fun TopBar(scope: CoroutineScope, scaffoldState: ScaffoldState, navController: NavController) {
     val topBarColor = Color(0xFF0C3954)
     val textColor = Color(0xFFE88853)
-    TopAppBar(
-        title = { Text(text = "JSON Placeholder Api", fontSize = 18.sp) },
-        navigationIcon = {
-            IconButton(onClick = {
-                scope.launch {
-                    scaffoldState.drawerState.open()
+    if (navController.currentDestination?.route !in listOf(NavigationItem.LoginPage.route, NavigationItem.RegisterPage.route)) {
+        TopAppBar(
+            title = { Text(text = "JSON Placeholder Api", fontSize = 18.sp) },
+            navigationIcon = {
+                IconButton(onClick = {
+                    scope.launch {
+                        scaffoldState.drawerState.open()
+                    }
+                }) {
+                    Icon(Icons.Filled.Menu, "")
                 }
-            }) {
-                Icon(Icons.Filled.Menu, "")
-            }
-        },
-        backgroundColor = topBarColor,
-        contentColor = textColor
-    )
+            },
+            backgroundColor = topBarColor,
+            contentColor = textColor
+        )
+    }
 }
+
 
 
 

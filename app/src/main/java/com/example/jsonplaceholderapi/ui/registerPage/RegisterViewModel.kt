@@ -2,9 +2,8 @@ package com.example.jsonplaceholderapi.ui.registerPage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
-import com.example.jsonplaceholderapi.data.repository.AuthRepository
-import com.example.jsonplaceholderapi.util.Resource.*
+import com.example.jsonplaceholderapi.data.repository.Repository
+import com.example.jsonplaceholderapi.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -13,34 +12,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    val repository: AuthRepository,
-   val navController: NavHostController
+    private val repository: Repository
 ) : ViewModel() {
 
     val _registerState = Channel<RegisterState>()
     val registerState = _registerState.receiveAsFlow()
 
     fun registerUser(email: String, password: String) = viewModelScope.launch {
-        repository.loginUser(email, password).collect { result ->
+        repository.registerUser(email, password).collect { result ->
+
             when (result) {
-                is Success -> {
+                is Resource.Success -> {
                     _registerState.send(RegisterState(isSuccess = "Sign In Success"))
-                    navController.navigate("users")
 
                 }
-
-                is Loading -> {
+                is Resource.Loading -> {
                     _registerState.send(RegisterState(isLoading = true))
 
                 }
-
-                is Error -> {
+                is Resource.Error -> {
                     _registerState.send(RegisterState(isError = result.message))
 
                 }
-
             }
 
         }
     }
+
+
 }

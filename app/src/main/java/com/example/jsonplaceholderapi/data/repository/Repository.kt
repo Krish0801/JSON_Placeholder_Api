@@ -6,6 +6,9 @@ import com.example.jsonplaceholderapi.data.model.photos.PhotosItemModel
 import com.example.jsonplaceholderapi.data.model.posts.PostsItemModel
 import com.example.jsonplaceholderapi.data.model.todos.TodosItemModel
 import com.example.jsonplaceholderapi.data.model.users.UsersItemModel
+import com.example.jsonplaceholderapi.util.Resource
+import com.google.firebase.auth.AuthResult
+import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
@@ -20,6 +23,10 @@ interface Repository {
     suspend fun getTodos(): ArrayList<TodosItemModel>
 
     suspend fun getUsers(): ArrayList<UsersItemModel>
+
+    fun loginUser(email:String, password:String): Flow<Resource<AuthResult>>
+
+    fun registerUser(email:String, password:String): Flow<Resource<AuthResult>>
 
 
 }

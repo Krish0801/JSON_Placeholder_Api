@@ -5,8 +5,6 @@ import androidx.navigation.NavHostController
 import com.example.jsonplaceholderapi.Application
 import com.example.jsonplaceholderapi.data.remote.ApiDetails
 import com.example.jsonplaceholderapi.data.remote.ApiRequest
-import com.example.jsonplaceholderapi.data.repository.AuthRepository
-import com.example.jsonplaceholderapi.data.repository.AuthRepositoryImpl
 import com.example.jsonplaceholderapi.data.repository.Repository
 import com.example.jsonplaceholderapi.data.repository.RepositoryImp
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +25,7 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun provideGson(): Gson{
+    fun provideGson(): Gson {
         return Gson()
     }
 
@@ -59,20 +57,14 @@ class AppModule {
     }
 
     @Provides
-    fun provideRepository(apiRequest: ApiRequest): Repository {
-        return RepositoryImp(apiRequest)
+    @Singleton
+    fun provideRepository(apiRequest: ApiRequest, firebaseAuth: FirebaseAuth): Repository {
+        return RepositoryImp(apiRequest, firebaseAuth)
     }
 
     @Provides
     @Singleton
-    fun provideAuthRepository(firebaseAuth: FirebaseAuth):AuthRepository{
-        return AuthRepositoryImpl(firebaseAuth)
-    }
-
-    @Provides
-    fun provideFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
-    }
+    fun provideFirebaseAuth() = FirebaseAuth . getInstance()
 
     @Provides
     @Singleton
@@ -85,7 +77,6 @@ class AppModule {
     fun provideApplication(@ApplicationContext context: Context): Application {
         return context.applicationContext as Application
     }
-
 
 
 }

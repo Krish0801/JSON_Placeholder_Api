@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -33,15 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHost
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.jsonplaceholderapi.R
-import com.example.jsonplaceholderapi.navigation.NavigationItem
 import com.example.jsonplaceholderapi.ui.LoginActivity
 import com.example.jsonplaceholderapi.ui.MainActivity
 import com.example.jsonplaceholderapi.ui.RegisterActivity
-import com.example.jsonplaceholderapi.ui.registerPage.RegisterPage
 import kotlinx.coroutines.launch
 
 var email = mutableStateOf("")
@@ -127,26 +121,11 @@ fun LoginPage( viewModel: LoginViewModel= hiltViewModel(), navController: NavCon
                 Spacer(modifier = Modifier.padding(10.dp))
 
                 createAnAccountButton()
-//                androidx.compose.material3.TextButton(onClick = {navController.navigate(
-//                    NavigationItem.RegisterPage.route)
-//
-//
-//                }) {
-//                    androidx.compose.material3.Text(
-//                        text = "Create An Account",
-//                        letterSpacing = 1.sp,
-//                        style = MaterialTheme.typography.labelLarge
-//                    )
-//                }
 
 
                 Spacer(modifier = Modifier.padding(5.dp))
                 androidx.compose.material3.TextButton(onClick = {
 
-//                    navHostController.navigate("reset_page"){
-//                        popUpTo(navHostController.graph.startDestinationId)
-//                        launchSingleTop = true
-//                    }
 
                 }) {
                     androidx.compose.material3.Text(
@@ -217,7 +196,6 @@ fun SimpleOutlinedTextFieldSample() {
         keyboardActions = KeyboardActions(
             onDone = {
                 keyboardController?.hide()
-                // do something here
             }
         )
 
@@ -264,7 +242,6 @@ fun SimpleOutlinedPasswordTextField() {
         keyboardActions = KeyboardActions(
             onDone = {
                 keyboardController?.hide()
-                // do something here
             }
         )
     )

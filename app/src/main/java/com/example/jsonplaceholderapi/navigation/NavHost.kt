@@ -29,7 +29,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationPage() {
     val scaffoldState = rememberScaffoldState(
@@ -39,8 +38,6 @@ fun NavigationPage() {
     )
     val scope = rememberCoroutineScope()
     val navController = rememberNavController()
-
-    val currentRoute = navController.currentDestination?.route
 
     Scaffold(
         scaffoldState = scaffoldState,
